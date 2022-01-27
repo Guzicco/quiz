@@ -1,5 +1,5 @@
 <div [ngClass]="{ notActive: !isActive }">
-  <h3>Question: {{ questionNumber + 1 }}</h3>
+  <h3>{{ languagePack.question }}: {{ questionNumber + 1 }}</h3>
   <h5>{{ questionData.question }}</h5>
   <ul>
     <li *ngFor="let answer of mixedAnswers; let i = index">

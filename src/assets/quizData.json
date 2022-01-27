@@ -1,8 +1,8 @@
 {
   "PL": {
     "langPack": {
-      "question": "pytanie",
-      "finish": "zakończ"
+      "question": "Pytanie",
+      "finish": "Zakończ"
     },
 
     "questions": [
@@ -65,8 +65,8 @@
 
   "ENG": {
     "langPack": {
-      "question": "question",
-      "finish": "finish"
+      "question": "Question",
+      "finish": "Finish"
     },
     "questions": [
       {

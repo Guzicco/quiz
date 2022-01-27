@@ -6,7 +6,6 @@
       <button
         *ngFor="let lang of LANGS"
         class="btn-nav lang"
-        [ngClass]="{ active: lang !== selectedLang }"
         [disabled]="lang === selectedLang ? true : false"
         (click)="handleLangChange(lang)"
         id="{{ lang }}"

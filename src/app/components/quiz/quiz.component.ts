@@ -9,7 +9,10 @@ import { question, quizData } from 'src/app/app.component';
 })
 export class QuizComponent {
   @Input()
-  quizData: quizData = { langPack: {}, questions: [] };
+  quizData: quizData = {
+    langPack: { question: '', finish: '' },
+    questions: [],
+  };
   currentQuestionNumber: number = 0;
   currentQuestion: question = {
     question: '',
@@ -17,14 +20,20 @@ export class QuizComponent {
     incorrect_answers: [],
   };
 
-  handleClick: (toDo: string) => void = (toDo) => {
+  handleNavigationClick: (toDo: string) => void = (toDo) => {
     if (toDo === '+') {
       this.currentQuestionNumber = this.currentQuestionNumber + 1;
     }
     if (toDo === '-') {
       this.currentQuestionNumber = this.currentQuestionNumber - 1;
     }
-    console.log(this.currentQuestionNumber);
+  };
+  handleQuestionNumberClick: (event: MouseEvent, index: number) => void = (
+    event,
+    index
+  ) => {
+    event.preventDefault();
+    this.currentQuestionNumber = index;
   };
 
   onSubmit(f: NgForm) {

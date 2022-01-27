@@ -2,9 +2,9 @@
   <button
     class="quiz-button"
     [ngClass]="{ hidden: currentQuestionNumber === 0 }"
-    (click)="handleClick('-')"
+    (click)="handleNavigationClick('-')"
   >
-    Previous Question
+    <
   </button>
   <div class="quiz-wrapper">
     <form ngForm name="quiz">
@@ -12,14 +12,17 @@
         <button
           *ngFor="let question of quizData.questions; let i = index"
           value="{{ i }}"
+          name="numberNavigation"
+          (click)="handleQuestionNumberClick($event, i)"
         >
-          {{ i }}
+          {{ i + 1 }}
         </button>
       </div>
       <app-question
         *ngFor="let question of quizData.questions; let i = index"
         [questionData]="question"
         [questionNumber]="i"
+        [languagePack]="quizData.langPack"
         [isActive]="i === currentQuestionNumber ? true : false"
       ></app-question>
       <div class="button-wrapper">
@@ -27,15 +30,13 @@
       </div>
     </form>
   </div>
-  <div>
-    <button
-      class="quiz-button"
-      [ngClass]="{
-        hidden: currentQuestionNumber === quizData.questions.length
-      }"
-      (click)="handleClick('+')"
+  <button
+    class="quiz-button"
+    [ngClass]="{
+      hidden: currentQuestionNumber === quizData.questions.length
+    }"
+    (click)="handleNavigationClick('+')"
+  >
     >
-      Next Question
-    </button>
-  </div>
+  </button>
 </div>

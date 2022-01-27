@@ -5,7 +5,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { question } from '../../app.component';
+import { langPack, langType, question } from '../../app.component';
 
 const mixOrder: (
   correct_answer: string,
@@ -33,6 +33,8 @@ export class QuestionComponent implements OnInit, OnChanges {
   };
   @Input() questionNumber: number = 0;
   @Input() isActive: boolean = false;
+  @Input() languagePack: langPack = { finish: '', question: '' };
+
   mixedAnswers: string[] = [
     ...this.questionData.incorrect_answers,
     ...this.questionData.correct_answer,
@@ -46,6 +48,6 @@ export class QuestionComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
+    // console.log(changes);
   }
 }

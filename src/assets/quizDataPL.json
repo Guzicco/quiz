@@ -1,0 +1,63 @@
+{
+  "langPack": {
+    "question": "pytanie",
+    "finish": "zakończ"
+  },
+
+  "questions": [
+    {
+      "question": "Co znajduje się na wystawie w muzeum Madamme Tussaud's?",
+      "correct_answer": "Figury woskowe",
+      "incorrect_answers": [
+        "Stylizacje ubrań",
+        "Taśmy nieemitowanych filmów",
+        "Zabytkowe samochody"
+      ]
+    },
+    {
+      "question": "Jak po francusku nazywa się \"czapka\"?",
+      "correct_answer": "Chapeau",
+      "incorrect_answers": ["Bonnet", "Casserole", "Casque"]
+    },
+    {
+      "question": "Który z mieczy nie jest tradycyjnym Europejskim mieczem?",
+      "correct_answer": "Sejmitar",
+      "incorrect_answers": ["Falchion", "Ulfberht", "Flamberga"]
+    },
+    {
+      "question": "Dokończ cytat Sherlocka Holmsa, \"Gdy odrzucisz to, co niemożliwe, wszystko pozostałe, choćby najbardziej nieprawdopodobne, musi być...\"",
+      "correct_answer": "Prawdą",
+      "incorrect_answers": ["Odpowiedzią", "Przyczyną", "Źródłem"]
+    },
+    {
+      "question": "Jak nazywa się Żydowski Nowy Rok?",
+      "correct_answer": "Rosh Hashanah",
+      "incorrect_answers": ["Elul", "New Year", "Succoss"]
+    },
+    {
+      "question": "Jakiej restauracji maskotką był klaun?",
+      "correct_answer": "McDonald's",
+      "incorrect_answers": ["Whataburger", "Burger King", "Sonic"]
+    },
+    {
+      "question": "W pewnej angielskiej kołysance, jaki owoc mały Jack Horner wyciągnął ze świątecznego ciasta?",
+      "correct_answer": "Śliwkę",
+      "incorrect_answers": ["Jabłko", "Brzoskwinię", "Gruszkę"]
+    },
+    {
+      "question": "Który z poniższych nie jest prowadzącym programu w amerykańskiej rozgłośni NPR?",
+      "correct_answer": "Ben Shapiro",
+      "incorrect_answers": ["Terry Gross", "Ira Glass", "Peter Sagal"]
+    },
+    {
+      "question": "Który ze składników krwi tworzy strup w miejscu zranienia?",
+      "correct_answer": "Płytki krwi",
+      "incorrect_answers": ["Czerwone krwinki", "Białe krwinki", "Osocze"]
+    },
+    {
+      "question": "Który z wymienionych krajów posiada w swojej fladze flagę brytyjską?",
+      "correct_answer": "Nowa Zelandia",
+      "incorrect_answers": ["Południowa Afryka", "Kanada", "Hong Kong"]
+    }
+  ]
+}

@@ -11,8 +11,13 @@ export type question = {
   correct_answer: string;
   incorrect_answers: string[];
 };
+
+export type langPack = {
+  finish: string;
+  question: string;
+};
 export type quizData = {
-  langPack: {};
+  langPack: langPack;
   questions: question[];
 };
 export const languages = ['PL', 'ENG'] as const;
