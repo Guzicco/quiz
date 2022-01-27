@@ -1,0 +1,26 @@
+.grid-wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 80% auto;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.button-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  & button {
+    width: 40px;
+    height: 40px;
+    margin-inline: 5px;
+    &.submit {
+      width: 200px;
+    }
+  }
+}
+app-question {
+  width: 70%;
+}

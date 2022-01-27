@@ -1,0 +1,31 @@
+$margin: 10px;
+.center {
+  display: flex;
+  align-items: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-rows: auto 80% auto;
+  height: calc(100% - #{$margin});
+  width: calc(100% - #{$margin});
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.bg-color {
+  background-color: #3f50b5;
+}
+
+app-quiz {
+  width: 100%;
+}
+
+.btn-nav {
+  width: 100px;
+  margin-inline: 5px;
+}
