@@ -1,0 +1,41 @@
+<div class="grid-wrapper">
+  <button
+    class="quiz-button"
+    [ngClass]="{ hidden: currentQuestionNumber === 0 }"
+    (click)="handleClick('-')"
+  >
+    Previous Question
+  </button>
+  <div class="quiz-wrapper">
+    <form ngForm name="quiz">
+      <div class="button-wrapper">
+        <button
+          *ngFor="let question of quizData.questions; let i = index"
+          value="{{ i }}"
+        >
+          {{ i }}
+        </button>
+      </div>
+      <app-question
+        *ngFor="let question of quizData.questions; let i = index"
+        [questionData]="question"
+        [questionNumber]="i"
+        [isActive]="i === currentQuestionNumber ? true : false"
+      ></app-question>
+      <div class="button-wrapper">
+        <button type="submit" class="submit">Finish Quiz</button>
+      </div>
+    </form>
+  </div>
+  <div>
+    <button
+      class="quiz-button"
+      [ngClass]="{
+        hidden: currentQuestionNumber === quizData.questions.length
+      }"
+      (click)="handleClick('+')"
+    >
+      Next Question
+    </button>
+  </div>
+</div>
