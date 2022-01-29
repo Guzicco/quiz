@@ -35,7 +35,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   setForm(controlName: string) {
     for (let len = 0; len < this.quizData.questions.length; len++) {
       this.answerForms.push(
-        new FormGroup({ [controlName + len]: new FormControl('') })
+        new FormGroup({ [controlName + len]: new FormControl() })
       );
     }
   }

@@ -24,17 +24,14 @@ export type langType = typeof languages[number];
   providedIn: 'root',
 })
 export class I18nService {
-  private currentLang: langType;
-  private quizData: quizData;
+  private currentLang!: langType;
+  private quizData!: quizData;
 
   private _currentLangSource = new BehaviorSubject<langType>('ENG');
   private _currentDataSource = new BehaviorSubject<quizData>(ENGLangPack);
   currentLang$ = this._currentLangSource.asObservable();
   currentData$ = this._currentDataSource.asObservable();
-  constructor() {
-    this.currentLang = 'ENG';
-    this.quizData = ENGLangPack;
-  }
+  constructor() {}
 
   changeLang(lang: langType) {
     this.setLangPack(lang);

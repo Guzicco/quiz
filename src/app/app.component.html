@@ -1,7 +1,7 @@
 <div class="root grid">
   <nav class="navigation bg-color">
     <div><button class="btn-nav home">HOME</button></div>
-    <div>countdown</div>
+    <div>{{ timer | timerPipe }}</div>
     <div>
       <button
         *ngFor="let lang of LANGS"
@@ -15,6 +15,7 @@
     </div>
   </nav>
   <main class="center">
+    <ng-container *ngIf="appState === APPSTATE.HOME"> </ng-container>
     <app-quiz *ngIf="appState === APPSTATE.QUIZ"></app-quiz>
   </main>
   <footer class="bg-color"></footer>
