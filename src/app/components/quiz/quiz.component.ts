@@ -1,5 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { question, quizData } from 'src/app/app.component';
 
 @Component({
@@ -8,31 +14,37 @@ import { question, quizData } from 'src/app/app.component';
   styleUrls: ['./quiz.component.scss'],
 })
 export class QuizComponent implements OnInit {
+  formQuiz!: FormGroup;
   @Input()
   quizData: quizData = {
     langPack: { question: '', finish: '' },
     questions: [],
   };
   currentQuestionNumber: number = 0;
-  currentQuestion: question = {
-    question: '',
-    correct_answer: '',
-    incorrect_answers: [],
-  };
-
-  formQuiz!: FormGroup;
 
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
     this.formQuiz = this.fb.group({
-      pickedAnswers: [this.fb.array([]), Validators.required],
+      pickedAnswers: this.fb.array([]),
     });
-    this.answerForms.value.push(1);
+
+    const choice = this.fb.group({
+      picked: '',
+    });
+
+    this.setForm('question');
   }
 
   get answerForms() {
     return this.formQuiz.get('pickedAnswers') as FormArray;
+  }
+  setForm(controlName: string) {
+    for (let len = 0; len < this.quizData.questions.length; len++) {
+      this.answerForms.push(
+        new FormGroup({ [controlName + len]: new FormControl('') })
+      );
+    }
   }
 
   onSubmitQuiz() {

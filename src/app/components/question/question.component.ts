@@ -33,13 +33,12 @@ export class QuestionComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.quizFormGroup.control;
-    // this.form.addControl(`Question-${this.questionNumber}`, new FormControl());
 
     this.mixedAnswers = mixOrder(
       this.questionData.correct_answer,
       this.questionData.incorrect_answers
     );
-    // console.log(this.form);
+    console.log(this.form);
   }
 }
 

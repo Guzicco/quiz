@@ -1,16 +1,20 @@
 <div [ngClass]="{ notActive: !isActive }" [formGroup]="form">
   <h3>{{ languagePack.question }}: {{ questionNumber + 1 }}</h3>
   <h5>{{ questionData.question }}</h5>
-  <ul>
-    <li *ngFor="let answer of mixedAnswers; let i = index">
-      <label>
-        <input
-          formControlName="pickedAnswers"
-          type="radio"
-          value="{{ answer }}"
-        />
-        {{ answer }}
-      </label>
-    </li>
+  <ul formArrayName="pickedAnswers">
+    <ng-container [formGroupName]="questionNumber">
+      <li *ngFor="let answer of mixedAnswers; let i = index">
+        <label>
+          <input
+            formControlName="question{{ questionNumber }}"
+            type="radio"
+            value="{{ answer }}"
+          />
+          {{ answer }}
+        </label>
+      </li>
+    </ng-container>
   </ul>
 </div>
+
+<!-- <pre>{{ form.value | json }}</pre> -->

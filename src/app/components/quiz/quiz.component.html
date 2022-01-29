@@ -20,12 +20,11 @@
     </div>
 
     <form [formGroup]="formQuiz" (ngSubmit)="onSubmitQuiz()">
-      value: {{ formQuiz.value | json }}
       <div>
+        value: {{ formQuiz.value | json }}
         <app-question
           *ngFor="let question of quizData.questions; let i = index"
-          formArrayName="pickedAnswers"
-          [questionData]="question"
+          [questionData]="quizData.questions[currentQuestionNumber]"
           [questionNumber]="i"
           [languagePack]="quizData.langPack"
           [isActive]="i === currentQuestionNumber ? true : false"
