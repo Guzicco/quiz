@@ -4,10 +4,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { QuestionComponent } from './components/question/question.component';
 import { QuizComponent } from './components/quiz/quiz.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent, QuestionComponent, QuizComponent],
-  imports: [BrowserModule],
+  imports: [BrowserModule, ReactiveFormsModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

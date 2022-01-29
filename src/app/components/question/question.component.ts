@@ -1,11 +1,6 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
-import { langPack, langType, question } from '../../app.component';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup, FormGroupDirective } from '@angular/forms';
+import { langPack, question } from '../../app.component';
 
 const mixOrder: (
   correct_answer: string,
@@ -25,7 +20,8 @@ const mixOrder: (
   templateUrl: './question.component.html',
   styleUrls: ['./question.component.scss'],
 })
-export class QuestionComponent implements OnInit, OnChanges {
+export class QuestionComponent implements OnInit {
+  form!: FormGroup;
   @Input() questionData: question = {
     question: '',
     correct_answer: '',
@@ -35,19 +31,18 @@ export class QuestionComponent implements OnInit, OnChanges {
   @Input() isActive: boolean = false;
   @Input() languagePack: langPack = { finish: '', question: '' };
 
+  constructor(private quizFormGroup: FormGroupDirective) {}
   mixedAnswers: string[] = [
     ...this.questionData.incorrect_answers,
     ...this.questionData.correct_answer,
   ];
 
   ngOnInit(): void {
+    this.form = this.quizFormGroup.control;
     this.mixedAnswers = mixOrder(
       this.questionData.correct_answer,
       this.questionData.incorrect_answers
     );
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    // console.log(changes);
+    console.log(this.form.value);
   }
 }

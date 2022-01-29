@@ -1,14 +1,12 @@
-<div [ngClass]="{ notActive: !isActive }">
+<div [ngClass]="{ notActive: !isActive }" [formGroup]="form">
   <h3>{{ languagePack.question }}: {{ questionNumber + 1 }}</h3>
   <h5>{{ questionData.question }}</h5>
   <ul>
     <li *ngFor="let answer of mixedAnswers; let i = index">
       <label>
         <input
-          ngModel
-          class="form-control"
+          formControlName="pickedAnswers"
           type="radio"
-          name="{{ 'question' + questionNumber }}"
           value="{{ answer }}"
         />
         {{ answer }}

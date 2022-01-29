@@ -6,30 +6,37 @@
   >
     <
   </button>
+
   <div class="quiz-wrapper">
-    <form ngForm name="quiz">
-      <div class="button-wrapper">
-        <button
-          *ngFor="let question of quizData.questions; let i = index"
-          value="{{ i }}"
-          name="numberNavigation"
-          (click)="handleQuestionNumberClick($event, i)"
-        >
-          {{ i + 1 }}
-        </button>
-      </div>
-      <app-question
+    <div class="button-wrapper">
+      <button
         *ngFor="let question of quizData.questions; let i = index"
-        [questionData]="question"
-        [questionNumber]="i"
-        [languagePack]="quizData.langPack"
-        [isActive]="i === currentQuestionNumber ? true : false"
-      ></app-question>
+        value="{{ i }}"
+        name="numberNavigation"
+        (click)="handleQuestionNumberClick($event, i)"
+      >
+        {{ i + 1 }}
+      </button>
+    </div>
+
+    <form [formGroup]="formQuiz" (ngSubmit)="onSubmitQuiz()">
+      value: {{ formQuiz.value | json }}
+      <div>
+        <app-question
+          *ngFor="let question of quizData.questions; let i = index"
+          formArrayName="pickedAnswers"
+          [questionData]="question"
+          [questionNumber]="i"
+          [languagePack]="quizData.langPack"
+          [isActive]="i === currentQuestionNumber ? true : false"
+        ></app-question>
+      </div>
       <div class="button-wrapper">
         <button type="submit" class="submit">Finish Quiz</button>
       </div>
     </form>
   </div>
+
   <button
     class="quiz-button"
     [ngClass]="{
