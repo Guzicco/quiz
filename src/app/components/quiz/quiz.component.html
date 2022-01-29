@@ -24,9 +24,7 @@
         value: {{ formQuiz.value | json }}
         <app-question
           *ngFor="let question of quizData.questions; let i = index"
-          [questionData]="quizData.questions[currentQuestionNumber]"
           [questionNumber]="i"
-          [languagePack]="quizData.langPack"
           [isActive]="i === currentQuestionNumber ? true : false"
         ></app-question>
       </div>
@@ -39,7 +37,7 @@
   <button
     class="quiz-button"
     [ngClass]="{
-      hidden: currentQuestionNumber === quizData.questions.length
+      hidden: currentQuestionNumber === quizData.questions.length - 1
     }"
     (click)="handleNavigationClick('+')"
   >

@@ -1,50 +1,39 @@
-import { Component, OnChanges, SimpleChanges } from '@angular/core';
-import quizDataALL from '../assets/quizData.json';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { I18nService, langType, languages, quizData } from './i18n.service';
 
 export enum AppState {
   HOME = 'HOME',
   QUIZ = 'QUIZ',
   ENG = 'END',
 }
-export type question = {
-  question: string;
-  correct_answer: string;
-  incorrect_answers: string[];
-};
-
-export type langPack = {
-  finish: string;
-  question: string;
-};
-export type quizData = {
-  langPack: langPack;
-  questions: question[];
-};
-export const languages = ['PL', 'ENG'] as const;
-export type langType = typeof languages[number];
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  providers: [I18nService],
 })
-export class AppComponent {
-  title = 'Quiz';
+export class AppComponent implements OnInit, OnDestroy {
   appState: AppState = AppState.QUIZ;
   APPSTATE = AppState;
-  selectedLang: langType = 'ENG';
   LANGS = languages;
-  quizData: quizData = quizDataALL.ENG;
+  currentLang!: langType;
+  subscription!: Subscription;
 
-  handleLangChange = (lang: langType) => {
-    this.selectedLang = lang;
-    switch (lang) {
-      case 'ENG':
-        this.quizData = quizDataALL.ENG;
-        break;
-      case 'PL':
-        this.quizData = quizDataALL.PL;
-        break;
-    }
-  };
+  constructor(private langService: I18nService) {}
+
+  handleLangChange(lang: langType) {
+    this.langService.changeLang(lang);
+  }
+
+  ngOnInit(): void {
+    this.subscription = this.langService.currentLang$.subscribe(
+      (lang) => (this.currentLang = lang)
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 }

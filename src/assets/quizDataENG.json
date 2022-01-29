@@ -35,7 +35,7 @@
     },
     {
       "question": "Which restaurant's mascot is a clown?",
-      "correct_answer": "McDonald&#039;s",
+      "correct_answer": "McDonald's",
       "incorrect_answers": ["Whataburger", "Burger King", "Sonic"]
     },
     {

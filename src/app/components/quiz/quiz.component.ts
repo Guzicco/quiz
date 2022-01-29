@@ -1,39 +1,32 @@
-import { Component, Input, OnInit } from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { question, quizData } from 'src/app/app.component';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { I18nService, quizData } from 'src/app/i18n.service';
 
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.scss'],
 })
-export class QuizComponent implements OnInit {
+export class QuizComponent implements OnInit, OnDestroy {
   formQuiz!: FormGroup;
-  @Input()
-  quizData: quizData = {
-    langPack: { question: '', finish: '' },
-    questions: [],
-  };
+  quizData!: quizData;
   currentQuestionNumber: number = 0;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private langService: I18nService) {}
 
   ngOnInit() {
+    this.langService.currentData$.subscribe((data) => (this.quizData = data));
     this.formQuiz = this.fb.group({
       pickedAnswers: this.fb.array([]),
     });
-
     const choice = this.fb.group({
       picked: '',
     });
-
     this.setForm('question');
+  }
+
+  ngOnDestroy(): void {
+    this.langService.currentData$.subscribe().unsubscribe();
   }
 
   get answerForms() {

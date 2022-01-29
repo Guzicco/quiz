@@ -1,44 +1,39 @@
-import { Component, Input, OnInit } from '@angular/core';
-import {
-  ControlContainer,
-  FormControl,
-  FormGroup,
-  FormGroupDirective,
-  FormGroupName,
-} from '@angular/forms';
-import { langPack, question } from '../../app.component';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { FormGroup, FormGroupDirective } from '@angular/forms';
+import { I18nService, langPack, question } from 'src/app/i18n.service';
 
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
   styleUrls: ['./question.component.scss'],
 })
-export class QuestionComponent implements OnInit {
+export class QuestionComponent implements OnInit, OnDestroy {
   form!: FormGroup;
-  @Input() questionData: question = {
-    question: '',
-    correct_answer: '',
-    incorrect_answers: [],
-  };
-  @Input() questionNumber: number = 0;
-  @Input() isActive: boolean = false;
-  @Input() languagePack: langPack = { finish: '', question: '' };
+  languagePack!: langPack;
+  questionData!: question;
+  mixedAnswers!: string[];
+  @Input() questionNumber!: number;
+  @Input() isActive!: boolean;
 
-  mixedAnswers: string[] = [
-    ...this.questionData.incorrect_answers,
-    ...this.questionData.correct_answer,
-  ];
-
-  constructor(private quizFormGroup: FormGroupDirective) {}
+  constructor(
+    private quizFormGroup: FormGroupDirective,
+    private langService: I18nService
+  ) {}
 
   ngOnInit(): void {
     this.form = this.quizFormGroup.control;
-
+    this.langService.currentData$.subscribe((data) => {
+      this.languagePack = data.langPack;
+      this.questionData = data.questions[this.questionNumber];
+    });
     this.mixedAnswers = mixOrder(
       this.questionData.correct_answer,
       this.questionData.incorrect_answers
     );
-    console.log(this.form);
+  }
+  ngOnDestroy(): void {
+    this.langService.currentData$.subscribe().unsubscribe();
+    this.langService.currentLang$.subscribe().unsubscribe();
   }
 }
 

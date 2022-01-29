@@ -6,7 +6,7 @@
       <button
         *ngFor="let lang of LANGS"
         class="btn-nav lang"
-        [disabled]="lang === selectedLang ? true : false"
+        [disabled]="lang === currentLang ? true : false"
         (click)="handleLangChange(lang)"
         id="{{ lang }}"
       >
@@ -15,10 +15,7 @@
     </div>
   </nav>
   <main class="center">
-    <app-quiz
-      *ngIf="appState === APPSTATE.QUIZ"
-      [quizData]="quizData"
-    ></app-quiz>
+    <app-quiz *ngIf="appState === APPSTATE.QUIZ"></app-quiz>
   </main>
-  <footer>bar</footer>
+  <footer class="bg-color"></footer>
 </div>

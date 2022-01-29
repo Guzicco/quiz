@@ -1,4 +1,8 @@
-<div [ngClass]="{ notActive: !isActive }" [formGroup]="form">
+<div
+  *ngIf="questionData"
+  [ngClass]="{ notActive: !isActive }"
+  [formGroup]="form"
+>
   <h3>{{ languagePack.question }}: {{ questionNumber + 1 }}</h3>
   <h5>{{ questionData.question }}</h5>
   <ul formArrayName="pickedAnswers">
@@ -16,5 +20,3 @@
     </ng-container>
   </ul>
 </div>
-
-<!-- <pre>{{ form.value | json }}</pre> -->
