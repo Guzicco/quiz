@@ -19,8 +19,8 @@
     &.submit {
       width: 200px;
     }
+    &.active {
+      transform: scale(1.2);
+    }
   }
-}
-app-question {
-  width: 70%;
 }

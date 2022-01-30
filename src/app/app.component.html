@@ -1,7 +1,13 @@
 <div class="root grid">
   <nav class="navigation bg-color">
-    <div><button class="btn-nav home">HOME</button></div>
-    <div>{{ timer | timerPipe }}</div>
+    <div>
+      <button class="btn-nav home" (click)="onHomeButtonClick()">HOME</button>
+    </div>
+    <div>
+      <span *ngIf="appState !== APPSTATE.HOME">
+        {{ timer | timerPipe }}
+      </span>
+    </div>
     <div>
       <button
         *ngFor="let lang of LANGS"
@@ -15,7 +21,10 @@
     </div>
   </nav>
   <main class="center">
-    <ng-container *ngIf="appState === APPSTATE.HOME"> </ng-container>
+    <div *ngIf="appState === APPSTATE.HOME" class="center">
+      <h3>QUIZ</h3>
+      <button (click)="onStartClick()">Click to Start</button>
+    </div>
     <app-quiz *ngIf="appState === APPSTATE.QUIZ"></app-quiz>
   </main>
   <footer class="bg-color"></footer>

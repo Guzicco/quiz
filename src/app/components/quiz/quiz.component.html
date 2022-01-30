@@ -8,20 +8,22 @@
   </button>
 
   <div class="quiz-wrapper">
-    <div class="button-wrapper">
-      <button
-        *ngFor="let question of quizData.questions; let i = index"
-        value="{{ i }}"
-        name="numberNavigation"
-        (click)="handleQuestionNumberClick($event, i)"
-      >
-        {{ i + 1 }}
-      </button>
-    </div>
-
     <form [formGroup]="formQuiz" (ngSubmit)="onSubmitQuiz()">
+      <div class="button-wrapper">
+        <button
+          *ngFor="let question of quizData.questions; let i = index"
+          value="{{ i }}"
+          name="numberNavigation"
+          (click)="handleQuestionNumberClick($event, i)"
+          [ngClass]="{
+            active: i === currentQuestionNumber ? true : false
+          }"
+        >
+          {{ i + 1 }}
+        </button>
+      </div>
+
       <div>
-        value: {{ formQuiz.value | json }}
         <app-question
           *ngFor="let question of quizData.questions; let i = index"
           [questionNumber]="i"

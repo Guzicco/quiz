@@ -1,51 +1,78 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CountdownService } from './countdown.service';
-import { I18nService, langType, languages, quizData } from './i18n.service';
-
-export enum AppState {
-  HOME = 'HOME',
-  QUIZ = 'QUIZ',
-  ENG = 'END',
-}
+import { I18nService, langType, languages } from './i18n.service';
+import {
+  AppState,
+  AppstateService,
+} from './services/appstate/appstate.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [I18nService],
+  providers: [],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  appState: AppState = AppState.QUIZ;
+  appState: AppState;
   APPSTATE = AppState;
   LANGS = languages;
   currentLang!: langType;
+  timer!: number;
+  stateSubscription!: Subscription;
   langSubscrition!: Subscription;
   countDownSubscription!: Subscription;
-  timer: number = 300;
 
   constructor(
     private langService: I18nService,
-    private countDown: CountdownService
-  ) {}
-
-  handleLangChange(lang: langType) {
-    this.langService.changeLang(lang);
+    private countDown: CountdownService,
+    private stateService: AppstateService
+  ) {
+    this.appState = AppState.HOME;
+    this.timer = 0;
   }
 
   ngOnInit(): void {
+    this.stateSubscription = this.stateService.currentAppState$.subscribe(
+      (state) => (this.appState = state)
+    );
     this.langSubscrition = this.langService.currentLang$.subscribe(
       (lang) => (this.currentLang = lang)
     );
-    this.countDownSubscription = this.countDown
-      .getCounter()
-      .subscribe(() => this.timer--);
   }
   ngOnDestroy(): void {
     this.langSubscrition.unsubscribe();
     this.countDownSubscription.unsubscribe();
+    this.stateSubscription.unsubscribe();
   }
+
+  handleLangChange(lang: langType) {
+    this.langService.changeLang(lang);
+  }
+  onHomeButtonClick() {
+    if (this.appState !== this.APPSTATE.HOME) {
+      if (confirm('Finish Quiz?')) {
+        this.appState = this.APPSTATE.HOME;
+        this.timer = 0;
+        this.countDown.stopTimer();
+        this.countDownSubscription.unsubscribe();
+      }
+    }
+  }
+  onStartClick() {
+    this.stateService.changeAppState(AppState.QUIZ);
+    this.countDown.startTimer();
+    this.countDownSubscription = this.countDown.currentTimer$.subscribe(
+      (timer) => (this.timer = timer)
+    );
+  }
+
   @HostListener('window:mousemove') refreshTimer() {
-    this.timer = 300;
+    if (this.appState !== AppState.QUIZ) {
+      this.timer = 0;
+      this.countDown.stopTimer();
+    } else {
+      this.countDown.refreshTimer();
+    }
   }
 }

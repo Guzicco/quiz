@@ -7,7 +7,7 @@
   <h5>{{ questionData.question }}</h5>
   <ul formArrayName="pickedAnswers">
     <ng-container [formGroupName]="questionNumber">
-      <li *ngFor="let answer of mixedAnswers; let i = index">
+      <li *ngFor="let answer of mixedAnswers | mixOrder; let i = index">
         <label>
           <input
             formControlName="question{{ questionNumber }}"
