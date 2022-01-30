@@ -9,7 +9,13 @@ import { TimerPipePipe } from './utils/timer-pipe.pipe';
 import { MixOrderPipe } from './utils/mixOrder/mix-order.pipe';
 
 @NgModule({
-  declarations: [AppComponent, QuestionComponent, QuizComponent, TimerPipePipe, MixOrderPipe],
+  declarations: [
+    AppComponent,
+    QuestionComponent,
+    QuizComponent,
+    TimerPipePipe,
+    MixOrderPipe,
+  ],
   imports: [BrowserModule, ReactiveFormsModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
