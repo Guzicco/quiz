@@ -11,7 +11,7 @@ export enum AppState {
   providedIn: 'root',
 })
 export class AppstateService {
-  appState: AppState = AppState.HOME;
+  private appState: AppState = AppState.HOME;
 
   private _currentAppStateSource = new BehaviorSubject<AppState>(AppState.HOME);
   currentAppState$ = this._currentAppStateSource.asObservable();

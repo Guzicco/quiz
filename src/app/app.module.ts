@@ -5,17 +5,10 @@ import { AppComponent } from './app.component';
 import { QuestionComponent } from './components/question/question.component';
 import { QuizComponent } from './components/quiz/quiz.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TimerPipePipe } from './utils/timer-pipe.pipe';
-import { MixOrderPipe } from './utils/mixOrder/mix-order.pipe';
+import { TimerPipePipe } from './pipes/timer-pipe/timer-pipe.pipe';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    QuestionComponent,
-    QuizComponent,
-    TimerPipePipe,
-    MixOrderPipe,
-  ],
+  declarations: [AppComponent, QuestionComponent, QuizComponent, TimerPipePipe],
   imports: [BrowserModule, ReactiveFormsModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],

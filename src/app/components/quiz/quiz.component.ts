@@ -1,6 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { I18nService, quizData } from 'src/app/i18n.service';
+import { Subscription } from 'rxjs';
+import { I18nService, quizData } from 'src/app/services/i18n/i18n.service';
 
 @Component({
   selector: 'app-quiz',
@@ -10,23 +11,25 @@ import { I18nService, quizData } from 'src/app/i18n.service';
 export class QuizComponent implements OnInit, OnDestroy {
   formQuiz!: FormGroup;
   quizData!: quizData;
+  langSubscription!: Subscription;
+  randomOrderSets: Set<number>[] = new Array(10);
   currentQuestionNumber: number = 0;
 
   constructor(private fb: FormBuilder, private langService: I18nService) {}
 
   ngOnInit() {
-    this.langService.currentData$.subscribe((data) => (this.quizData = data));
+    this.langSubscription = this.langService.currentData$.subscribe(
+      (data) => (this.quizData = data)
+    );
     this.formQuiz = this.fb.group({
       pickedAnswers: this.fb.array([]),
     });
-    const choice = this.fb.group({
-      picked: '',
-    });
+    this.populateOrderSet();
     this.setForm('question');
   }
 
   ngOnDestroy(): void {
-    this.langService.currentData$.subscribe().unsubscribe();
+    this.langSubscription.unsubscribe();
   }
 
   get answerForms() {
@@ -37,6 +40,16 @@ export class QuizComponent implements OnInit, OnDestroy {
       this.answerForms.push(
         new FormGroup({ [controlName + len]: new FormControl() })
       );
+    }
+  }
+  populateOrderSet() {
+    for (let i = 0; i < this.quizData.questions.length; i++) {
+      let newSet = new Set<number>();
+      while (newSet.size < 4) {
+        newSet.add(Math.floor(Math.random() * 4));
+      }
+      this.randomOrderSets.push(newSet);
+      this.randomOrderSets.shift();
     }
   }
 

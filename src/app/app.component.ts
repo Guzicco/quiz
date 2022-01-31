@@ -1,7 +1,7 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { CountdownService } from './countdown.service';
-import { I18nService, langType, languages } from './i18n.service';
+import { CountdownService } from './services/countdown/countdown.service';
+import { I18nService, langType, languages } from './services/i18n/i18n.service';
 import {
   AppState,
   AppstateService,

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import ENGLangPack from '../assets/quizDataENG.json';
-import PLLangPack from '../assets/quizDataPL.json';
+import ENGLangPack from 'src/assets/quizDataENG.json';
+import PLLangPack from 'src/assets/quizDataPL.json';
 
 export type question = {
   question: string;

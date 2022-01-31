@@ -1,15 +1,12 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormGroupDirective } from '@angular/forms';
-import { I18nService, langPack, question } from 'src/app/i18n.service';
-
-function mix(value: string[]) {
-  let mixedPool: string[] = [];
-  while (value.length) {
-    let index = Math.floor(8 * value.length);
-    mixedPool = [...mixedPool, ...value.splice(index, 1)];
-  }
-  return mixedPool;
-}
+import { Subscription } from 'rxjs';
+import {
+  I18nService,
+  langPack,
+  question,
+} from 'src/app/services/i18n/i18n.service';
+import { mix } from '../../utils/mix';
 
 @Component({
   selector: 'app-question',
@@ -20,7 +17,10 @@ export class QuestionComponent implements OnInit, OnDestroy {
   form!: FormGroup;
   languagePack!: langPack;
   questionData!: question;
-  mixedAnswers!: string[];
+  answers!: string[];
+  questionSubscription!: Subscription;
+
+  @Input() answersOrder!: Set<number>;
   @Input() questionNumber!: number;
   @Input() isActive!: boolean;
 
@@ -31,17 +31,20 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.form = this.quizFormGroup.control;
-    this.langService.currentData$.subscribe((data) => {
-      this.languagePack = data.langPack;
-      this.questionData = data.questions[this.questionNumber];
-    });
-    this.mixedAnswers = [
+    this.questionSubscription = this.langService.currentData$.subscribe(
+      (data) => {
+        this.languagePack = data.langPack;
+        this.questionData = data.questions[this.questionNumber];
+      }
+    );
+    this.answers = [
       this.questionData.correct_answer,
       ...this.questionData.incorrect_answers,
     ];
+    this.answers = mix(this.answers, Array.from(this.answersOrder));
   }
+
   ngOnDestroy(): void {
-    this.langService.currentData$.subscribe().unsubscribe();
-    this.langService.currentLang$.subscribe().unsubscribe();
+    this.questionSubscription.unsubscribe();
   }
 }

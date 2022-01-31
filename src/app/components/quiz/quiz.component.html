@@ -24,8 +24,10 @@
       </div>
 
       <div>
+        <pre>{{ formQuiz.value | json }}</pre>
         <app-question
           *ngFor="let question of quizData.questions; let i = index"
+          [answersOrder]="randomOrderSets[i]"
           [questionNumber]="i"
           [isActive]="i === currentQuestionNumber ? true : false"
         ></app-question>
