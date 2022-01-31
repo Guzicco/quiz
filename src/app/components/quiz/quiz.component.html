@@ -3,9 +3,7 @@
     class="quiz-button"
     [ngClass]="{ hidden: currentQuestionNumber === 0 }"
     (click)="handleNavigationClick('-')"
-  >
-    <
-  </button>
+  ></button>
 
   <div class="quiz-wrapper">
     <form [formGroup]="formQuiz" (ngSubmit)="onSubmitQuiz()">
@@ -22,17 +20,26 @@
           {{ i + 1 }}
         </button>
       </div>
-
-      <div>
+      <div class="questions-container">
         <app-question
           *ngFor="let question of quizData.questions; let i = index"
           [answersOrder]="randomOrderSets[i]"
           [questionNumber]="i"
           [isActive]="i === currentQuestionNumber ? true : false"
         ></app-question>
+        <app-quizsummary [score]="calcScore()"></app-quizsummary>
       </div>
       <div class="button-wrapper">
-        <button type="submit" class="submit">Finish Quiz</button>
+        <button *ngIf="appState === APPSTATE.QUIZ" type="submit" class="submit">
+          {{ quizData.langPack.finish }} Quiz
+        </button>
+        <button
+          *ngIf="appState === APPSTATE.SUMMARY"
+          class="submit"
+          (click)="handleSummaryClick()"
+        >
+          {{ quizData.langPack.summary }}
+        </button>
       </div>
     </form>
   </div>

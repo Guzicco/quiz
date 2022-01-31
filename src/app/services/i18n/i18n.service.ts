@@ -12,6 +12,16 @@ export type question = {
 export type langPack = {
   finish: string;
   question: string;
+  your: string;
+  score: string;
+  summary: string;
+  score_description: {
+    bad: string;
+    good: string;
+    exelent: string;
+  };
+  correct_answer: string;
+  incorrect_answer: string;
 };
 export type quizData = {
   langPack: langPack;

@@ -23,9 +23,9 @@
   <main class="center">
     <div *ngIf="appState === APPSTATE.HOME" class="center">
       <h3>QUIZ</h3>
-      <button (click)="onStartClick()">Click to Start</button>
+      <button (click)="onStartClick()">Start</button>
     </div>
-    <app-quiz *ngIf="appState === APPSTATE.QUIZ"></app-quiz>
+    <app-quiz *ngIf="appState !== APPSTATE.HOME"></app-quiz>
   </main>
   <footer class="bg-color"></footer>
 </div>

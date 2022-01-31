@@ -1,7 +1,12 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CountdownService } from './services/countdown/countdown.service';
-import { I18nService, langType, languages } from './services/i18n/i18n.service';
+import {
+  I18nService,
+  langPack,
+  langType,
+  languages,
+} from './services/i18n/i18n.service';
 import {
   AppState,
   AppstateService,
@@ -14,11 +19,13 @@ import {
   providers: [],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  appState: AppState;
   APPSTATE = AppState;
   LANGS = languages;
+
+  appState: AppState;
   currentLang!: langType;
   timer!: number;
+
   stateSubscription!: Subscription;
   langSubscrition!: Subscription;
   countDownSubscription!: Subscription;
@@ -68,11 +75,16 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   @HostListener('window:mousemove') refreshTimer() {
-    if (this.appState !== AppState.QUIZ) {
-      this.timer = 0;
-      this.countDown.stopTimer();
-    } else {
-      this.countDown.refreshTimer();
+    switch (this.appState) {
+      case AppState.HOME: {
+        this.timer = 0;
+        this.countDown.stopTimer();
+        break;
+      }
+      case AppState.QUIZ: {
+        this.countDown.refreshTimer();
+        break;
+      }
     }
   }
 }

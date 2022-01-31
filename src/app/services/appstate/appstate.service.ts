@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 export enum AppState {
   HOME = 'HOME',
   QUIZ = 'QUIZ',
-  ENG = 'END',
+  SUMMARY = 'SUMMARY',
 }
 
 @Injectable({

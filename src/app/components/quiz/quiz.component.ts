@@ -1,6 +1,17 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Subscription } from 'rxjs';
+import {
+  AppState,
+  AppstateService,
+} from 'src/app/services/appstate/appstate.service';
+import { CountdownService } from 'src/app/services/countdown/countdown.service';
 import { I18nService, quizData } from 'src/app/services/i18n/i18n.service';
 
 @Component({
@@ -11,13 +22,24 @@ import { I18nService, quizData } from 'src/app/services/i18n/i18n.service';
 export class QuizComponent implements OnInit, OnDestroy {
   formQuiz!: FormGroup;
   quizData!: quizData;
+  appState!: AppState;
+  APPSTATE = AppState;
   langSubscription!: Subscription;
+  stateSubscription!: Subscription;
   randomOrderSets: Set<number>[] = new Array(10);
   currentQuestionNumber: number = 0;
 
-  constructor(private fb: FormBuilder, private langService: I18nService) {}
+  constructor(
+    private fb: FormBuilder,
+    private langService: I18nService,
+    private stateService: AppstateService,
+    private countdownService: CountdownService
+  ) {}
 
   ngOnInit() {
+    this.stateSubscription = this.stateService.currentAppState$.subscribe(
+      (state) => (this.appState = state)
+    );
     this.langSubscription = this.langService.currentData$.subscribe(
       (data) => (this.quizData = data)
     );
@@ -30,6 +52,7 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.langSubscription.unsubscribe();
+    this.stateSubscription.unsubscribe();
   }
 
   get answerForms() {
@@ -38,7 +61,10 @@ export class QuizComponent implements OnInit, OnDestroy {
   setForm(controlName: string) {
     for (let len = 0; len < this.quizData.questions.length; len++) {
       this.answerForms.push(
-        new FormGroup({ [controlName + len]: new FormControl() })
+        new FormGroup(
+          { [controlName + len]: new FormControl() },
+          Validators.required
+        )
       );
     }
   }
@@ -53,8 +79,14 @@ export class QuizComponent implements OnInit, OnDestroy {
     }
   }
 
+  calcScore() {
+    const score = 0;
+    return score;
+  }
+
   onSubmitQuiz() {
-    // console.log(this.formQuiz.value);
+    this.countdownService.stopTimer();
+    this.stateService.changeAppState(AppState.SUMMARY);
   }
 
   handleNavigationClick: (toDo: string) => void = (toDo) => {
@@ -72,4 +104,5 @@ export class QuizComponent implements OnInit, OnDestroy {
     event.preventDefault();
     this.currentQuestionNumber = index;
   };
+  handleSummaryClick() {}
 }

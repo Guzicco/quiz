@@ -1,7 +1,17 @@
 {
   "langPack": {
     "question": "Pytanie",
-    "finish": "Zakończ"
+    "finish": "Zakończ",
+    "your": "Twój",
+    "score": "Wynik",
+    "summary": "Podsumowanie",
+    "score_description": {
+      "bad": "Powinieneś bardziej uważać na zajęciach",
+      "good": "Dobra robota! Tylko kilka pomyłek.",
+      "exelent": "ZNAKOMICIE! Wiesz wszystko!"
+    },
+    "correct_answer": "Poprawna odpowiedź",
+    "incorrect_answer": "Niepoprawna odpowiedź"
   },
 
   "questions": [

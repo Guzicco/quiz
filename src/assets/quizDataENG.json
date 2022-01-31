@@ -1,7 +1,17 @@
 {
   "langPack": {
     "question": "Question",
-    "finish": "Finish"
+    "finish": "Finish",
+    "your": "Your",
+    "score": "Score",
+    "summary": "Summary",
+    "score_description": {
+      "bad": "You should have paid more attention to class.",
+      "good": "You did good! Just few mistakes.",
+      "exelent": "EXELENT! You know everything!"
+    },
+    "correct_answer": "Correct answer",
+    "incorrect_answer": "Incorrect answer"
   },
   "questions": [
     {
