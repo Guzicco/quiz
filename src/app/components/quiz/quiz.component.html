@@ -27,7 +27,10 @@
           [questionNumber]="i"
           [isActive]="i === currentQuestionNumber ? true : false"
         ></app-question>
-        <app-quizsummary [score]="calcScore()"></app-quizsummary>
+        <app-quizsummary
+          *ngIf="appState === APPSTATE.SUMMARY"
+          [score]="calcScore()"
+        ></app-quizsummary>
       </div>
       <div class="button-wrapper">
         <button *ngIf="appState === APPSTATE.QUIZ" type="submit" class="submit">
